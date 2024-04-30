@@ -1,13 +1,21 @@
-Өгөгдөл дамжуулах процессыг эхлүүлэх
-     А байгууллагын мэдээллийн эх сурвалжтай холболтыг эхлүүлэх
-     В байгууллагын өгөгдлийн хаягтай холболтыг эхлүүлэх
+function main():
+    connectionA = null
+    connectionB = null
+    try:
+        connectionA = connect_to_database("databaseA")
+        connectionB = connect_to_database("databaseB")
+        while True:
+            employee_data = fetch_employee_data(connectionA)
+            sorted_employee_data = sort_employee_data(employee_data)
+            copy_employee_data(sorted_employee_data, connectionB)
+            if all_data_copied():
+                print("All data copied. Exiting program.")
+                break
+            else:
+                print("Not all data copied. Continuing...")
+    catch SQLException as e:
+        print(e.printStackTrace())
+    finally:
+        close_connections(connectionA, connectionB)
 
-     Хэрэв холболт амжилттай бол:
-         А байгууллагаас мэдээлэл авах
-         В байгууллагад өгөгдөл дамжуулах
-         Амжилттай шилжүүлгийг баталгаажуулах
-         Холболтуудыг хаах
-         Гаралт: Өгөгдөл дамжуулалт амжилттай дууслаа
-     Амжилтгүй бол:
-         Гаралт: Холболт үүсгэж чадсангүй
-Өгөгдөл дамжуулах үйл явцыг дуусгах
+
