@@ -6,22 +6,15 @@ public class DataTransfer {
         Connection connectionB = null;
 
         try {
-            // Open database connection A
             connectionA = DriverManager.getConnection("jdbc:mysql://localhost:3306/databaseA", "username", "password");
-
-            // Open database connection B
             connectionB = DriverManager.getConnection("jdbc:mysql://localhost:3306/databaseB", "username", "password");
 
-            // Start the loop
             while (true) {
-                // Getting employee information from database A
+                // А өгөгдлийн сангаас өгөгдлүүдийг авах
                 Statement stmtA = connectionA.createStatement();
-                ResultSet rsA = stmtA.executeQuery("SELECT * FROM employees");
+                ResultSet rsA = stmtA.executeQuery("SELECT * FROM employees ORDER BY type");
 
-                // Sort employee data by type
-                // (Assuming you have some sorting logic here)
-
-                // Copy the sorted information of the employees to database B
+                // Б өгөгдлийн сан руу хуулах
                 PreparedStatement pstmtB = connectionB.prepareStatement("INSERT INTO employees (id, name, type) VALUES (?, ?, ?)");
                 while (rsA.next()) {
                     pstmtB.setInt(1, rsA.getInt("id"));
