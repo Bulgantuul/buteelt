@@ -9,10 +9,17 @@ public class DataTransfer {
             connectionA = DriverManager.getConnection("jdbc:mysql://localhost:3306/databaseA", "username", "password");
             connectionB = DriverManager.getConnection("jdbc:mysql://localhost:3306/databaseB", "username", "password");
 
-            while (true) {
+
+            if (connectionA != null && connectionB != null) {
                 // А өгөгдлийн сангаас өгөгдлүүдийг авах
                 Statement stmtA = connectionA.createStatement();
                 ResultSet rsA = stmtA.executeQuery("SELECT * FROM employees ORDER BY type");
+
+                rsA.last();
+                int rowCount = rsA.getRow();
+                rsA.beforeFirst();
+
+                for (int i = 1; i <= rowCount; i++) {
 
                 // Б өгөгдлийн сан руу хуулах
                 PreparedStatement pstmtB = connectionB.prepareStatement("INSERT INTO employees (id, name, type) VALUES (?, ?, ?)");
@@ -22,24 +29,21 @@ public class DataTransfer {
                     pstmtB.setString(3, rsA.getString("type"));
                     pstmtB.executeUpdate();
                 }
-
-                // Close statement and result set for database A
+             
                 rsA.close();
                 stmtA.close();
 
-                // Check if all data is copied
-                // Assuming you have some logic to check this
-
-                // If all data is copied, end the program
-                // Assuming you have some condition to check this
-                if (allDataCopied()) {
-                    System.out.println("All data copied. Exiting program.");
+                if (allDataCopied(rsA)) {
+                    System.out.println("Датаг хуулж дууслаа.");
                     break;
                 } else {
-                    // If not all data is copied, continue the loop
-                    System.out.println("Not all data copied. Continuing...");
+                    System.out.println("Датаг хуулж дуусаагүй байна. Үргэжлүүлж байна..."); 
                 }
+
             }
+        } else {
+            System.out.println("Өгөгдлийн сангаас холбоо тасарлаа. Дахин оролдно уу!");
+        }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -53,9 +57,10 @@ public class DataTransfer {
         }
     }
 
-    // Dummy method, replace with your actual logic
-    private static boolean allDataCopied() {
-        // Assuming some condition to check if all data is copied
-        return false;
-    }
+    
+    
+    private static boolean allDataCopied(ResultSet rsA) throws SQLException {
+    return !rsA.next();
+}
+
 }

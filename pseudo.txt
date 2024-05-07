@@ -1,30 +1,41 @@
-<<<<<<< HEAD
-Улаанбаатар хотод байрлах А байгууллага өөрсдийн зарим ажиллагсдын мэдээллийг ялган Дархан
-хотод байх нөөц серверт шилжүүлэх болжээ. Уг даалгаврыг гүйцэтгэх программ бич.
-Хувилбар:
-1. Эхлээд ажиллагсдын мэдээллийг ялган шүүгээд дараа нь мэдээллийг шилжүүлэх
-2. Эхлээд байгаа мэдээллээ шилжүүлээд зохих ажиллагсдын мэдээллийг ялган хадгалах
-3
-=======
-function main():
-    connectionA = null
-    connectionB = null
+java.sql import хийнэ
+
+DataTransfer class:
+    function main():
+        connectionA зарлах
+        connectionB зарлах
     try:
-        connectionA = connect_to_database("databaseA")
-        connectionB = connect_to_database("databaseB")
-        while True:
-            employee_data = fetch_employee_data(connectionA)
-            sorted_employee_data = sort_employee_data(employee_data)
-            copy_employee_data(sorted_employee_data, connectionB)
+        connectionA -ын хаягийг бичиж холбоно
+        connectionB -ын хаягийг бичиж холбоно
+
+
+        if (2 өгөгдлийн сан холбоотой байгаа эсэхийг шалгана)
+            Statement гэсэн обьект үүсгэнэ
+            ResultSet query ашиглаж хуулна.
+
+            rsA.last(): өгөгдлийн хэмжээг олно
+
+
+            for( нийт өгөгдлийн туршид )
+
+            While(rsA дараагийн өгөгдөл байгаа тохиолдолд)
+            pstmtB тухайн өгөгдлийн дагуу Б-д хадгална
+            pstmtB тухайн өгөгдлийн дагуу Б-д хадгална
+            pstmtB тухайн өгөгдлийн дагуу Б-д хадгална
+            pstmtB тухайн өгөгдлийн дагуу Б-д хадгална
+
+            rsA хаана
+            stmta хаана
             if all_data_copied():
-                print("All data copied. Exiting program.")
+                print("Датаг хуулж дууслаа.")
                 break
             else:
-                print("Not all data copied. Continuing...")
+                print("Датаг хуулж дуусаагүй байна. Үргэжлүүлж байна....")
     catch SQLException as e:
         print(e.printStackTrace())
     finally:
-        close_connections(connectionA, connectionB)
+        close_connections(А, Б өгөгдлийн сангаас холбоог салгана)
 
-...
->>>>>>> dd9736628792fe34ba0efcea33ff62984cfa57fe
+        boolean allDataCopied rsA хуулагдсан эсэхийг шалгана
+
+
